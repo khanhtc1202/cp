@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/khanh.tran/workspace/C/db/main.c
+/Users/khanh.tran/workspace/cross/alg-cross-lang/C/db/main.c
 stdio.h
 -
 stdbool.h

@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/Users/khanh.tran/workspace/C/db/main.c" "/Users/khanh.tran/workspace/C/db/cmake-build-debug/CMakeFiles/db.dir/main.c.o"
+  "/Users/khanh.tran/workspace/cross/alg-cross-lang/C/db/main.c" "/Users/khanh.tran/workspace/cross/alg-cross-lang/C/db/cmake-build-debug/CMakeFiles/db.dir/main.c.o"
   )
 set(CMAKE_C_COMPILER_ID "AppleClang")
 
