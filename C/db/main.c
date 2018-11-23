@@ -70,7 +70,6 @@ typedef struct Pager_t Pager;
 
 struct Table_t {
     Pager* pager;
-    void* pages[TABLE_MAX_PAGES];
     uint32_t num_rows;
 };
 typedef struct Table_t Table;
@@ -94,6 +93,58 @@ Pager* pager_open(const char* filename) {
     }
 
     return pager;
+}
+
+void pager_flush(Pager* pager, uint32_t page_num, uint32_t size) {
+    if (pager->pages[page_num] == NULL) {
+        printf("Tried to flush null page\n");
+        exit(EXIT_FAILURE);
+    }
+
+    off_t offset = lseek(pager->file_descriptor, page_num * PAGE_SIZE, SEEK_SET);
+    if (offset == -1) {
+        printf("Error seeking: %d\n", errno);
+        exit(EXIT_FAILURE);
+    }
+
+    ssize_t bytes_written = write(pager->file_descriptor, pager->pages[page_num], size);
+    if (bytes_written == -1) {
+        printf("Error writing: %d\n", errno);
+        exit(EXIT_FAILURE);
+    }
+}
+
+// the logic for handling a cache miss
+void* get_page(Pager* pager, uint32_t page_num) {
+    if (page_num > TABLE_MAX_PAGES) {
+        printf("Tried to fetch page number out of bounds. %d > %d\n",
+               page_num, TABLE_MAX_PAGES);
+        exit(EXIT_FAILURE);
+    }
+
+    if (pager->pages[page_num] == NULL) {
+        // cache miss, allocate memory for new page
+        void* page = malloc(PAGE_SIZE);
+        uint32_t num_pages = pager->file_length / PAGE_SIZE;
+
+        // add 1 if we have a partial page
+        if (pager->file_length % PAGE_SIZE) {
+            num_pages += 1;
+        }
+
+        if (page_num <= num_pages) {
+            lseek(pager->file_descriptor, page_num * PAGE_SIZE, SEEK_SET);
+            ssize_t bytes_read = read(pager->file_descriptor, page, PAGE_SIZE);
+            if (bytes_read == -1) {
+                printf("Error reading file: %d\n", errno);
+                exit(EXIT_FAILURE);
+            }
+        }
+
+        pager->pages[page_num] = page;
+    }
+
+    return pager->pages[page_num];
 }
 
 Table* db_open(const char* filename) {
@@ -145,49 +196,6 @@ void db_close(Table* table) {
         }
     }
     free(pager);
-}
-
-void pager_flush(Pager* pager, uint32_t page_num, uint32_t size) {
-    // TODO
-}
-
-// the logic for handling a cache miss
-void* get_page(Pager* pager, uint32_t page_num) {
-    if (page_num > TABLE_MAX_PAGES) {
-        printf("Tried to fetch page number out of bounds. %d > %d\n",
-               page_num, TABLE_MAX_PAGES);
-        exit(EXIT_FAILURE);
-    }
-
-    if (pager->pages[page_num] == NULL) {
-        // cache miss, allocate memory for new page
-        void* page = malloc(PAGE_SIZE);
-        uint32_t num_pages = pager->file_length / PAGE_SIZE;
-
-        // add 1 if we have a partial page
-        if (pager->file_length % PAGE_SIZE) {
-            num_pages += 1;
-        }
-
-        if (page_num <= num_pages) {
-            lseek(pager->file_descriptor, page_num * PAGE_SIZE, SEEK_SET);
-            ssize_t bytes_read = read(pager->file_descriptor, page, PAGE_SIZE);
-            if (bytes_read == -1) {
-                printf("Error reading file: %d\n", errno);
-                exit(EXIT_FAILURE);
-            }
-        }
-
-        pager->pages[page_num] = page;
-    }
-
-    return pager->pages[page_num];
-}
-
-Table* new_table() {
-    Table* table = malloc(sizeof(Table));
-    table->num_rows = 0;
-    return table;
 }
 
 struct Statement_t {
@@ -332,8 +340,14 @@ ExecuteResult execute_statement(Statement* statement, Table* table) {
     }
 }
 
-int main() {
-    Table* table = new_table();
+int main(int argc, char* argv[]) {
+    if (argc < 2) {
+        printf("Must supply a database filename.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    char* filename = argv[1];
+    Table* table = db_open(filename);
     InputBuffer* input_buffer = new_input_buffer();
     while (true) {
         print_prompt();
