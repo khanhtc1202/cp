@@ -17,12 +17,58 @@ Node* newNode(int data) {
     return node;
 }
 
+// tree travel
+void printPostOrder(Node* node) {
+    if (node == NULL) {
+        return;
+    }
+
+    printPostOrder(node->left);
+    printPostOrder(node->right);
+
+    printf("%d ", node->data);
+}
+
+void printPreOrder(Node* node) {
+    if (node == NULL) {
+        return;
+    }
+
+    printf("%d ", node->data);
+
+    printPreOrder(node->left);
+    printPreOrder(node->right);
+}
+
+void printInnerOrder(Node* node) {
+    if (node == NULL) {
+        return;
+    }
+
+    printInnerOrder(node->left);
+    printf("%d ", node->data);
+    printInnerOrder(node->right);
+}
+
 int  main(int argc, char const *argv[])
 {
-    Node* root = newNode(1);
+    Node* root = newNode(4);
 
     root->left = newNode(2);
-    root->right = newNode(3);
+    root->right = newNode(5);
+
+    root->left->left = newNode(1);
+    root->left->right = newNode(3);
+
+    // print
+    printf("Post Order: ");
+    printPostOrder(root);
+
+    printf("\nPre Order: ");
+    printPreOrder(root);
+
+    printf("\nInner Order: ");
+    printInnerOrder(root);
 
     getchar();
     return 0;
