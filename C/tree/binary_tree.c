@@ -50,15 +50,27 @@ void printInnerOrder(Node* node) {
     printInnerOrder(node->right);
 }
 
+Node* insert(Node* node, int data) {
+    if (node == NULL) {
+        return newNode(data);
+    } else {
+        if (data <= node->data) {
+            node->left = insert(node->left, data);
+        } else {
+            node->right = insert(node->right, data);
+        }
+        return node;
+    }
+}
+
 int  main(int argc, char const *argv[])
 {
     Node* root = newNode(4);
 
-    root->left = newNode(2);
-    root->right = newNode(5);
-
-    root->left->left = newNode(1);
-    root->left->right = newNode(3);
+    insert(root, 2);
+    insert(root, 5);
+    insert(root, 1);
+    insert(root, 3);
 
     // print
     printf("Post Order: ");
