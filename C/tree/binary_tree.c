@@ -63,6 +63,27 @@ Node* insert(Node* node, int data) {
     }
 }
 
+int size(Node* node) {
+    if (node == NULL) return 0;
+    return size(node->left) + 1 + size(node->right);
+}
+
+int minValue(Node* node) {
+    Node* cur = node;
+    while (cur->left != NULL) {
+        cur = cur->left;
+    }
+    return cur->data;
+}
+
+int maxValue(Node* node) {
+    Node* cur = node;
+    while (cur->right != NULL) {
+        cur = cur->right;
+    }
+    return cur->data;
+}
+
 int  main(int argc, char const *argv[])
 {
     Node* root = newNode(4);
@@ -81,6 +102,10 @@ int  main(int argc, char const *argv[])
 
     printf("\nInner Order: ");
     printInnerOrder(root);
+
+    printf("\nTree size: %d", size(root));
+    printf("\nMin value: %d", minValue(root));
+    printf("\nMax value: %d\n", maxValue(root));
 
     getchar();
     return 0;
