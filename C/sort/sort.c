@@ -72,6 +72,9 @@ void merge(int* arr, int l, int m, int r) {
         k++;
     }
 
+    // load the whole part of halve that ordered to merged array ( arr <= L or arr <= R )
+    // k is now on index of the merged array
+    // i, j are now on index of ordered halve
     LOAD_REMAINING_ITEMS(i, k, n1, arr, L);
     LOAD_REMAINING_ITEMS(j, k, n2, arr, R);
 }
