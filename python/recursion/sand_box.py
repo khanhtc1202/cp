@@ -60,8 +60,9 @@ def quick_sort(arr):
     if len(arr) < 2:
         return arr
     pivot = arr[0]
-    less = [i for i in arr[1:] if i <= pivot]
-    greater = [i for i in arr[1:] if i > pivot]
+    less, greater = [], []
+    for i in arr[1:]:
+        less.append(i) if i <= pivot else greater.append(i)
     return quick_sort(less) + [pivot] + quick_sort(greater)
 
 def merge_stage(left, right):
@@ -97,7 +98,7 @@ def run_time(func, print_output, *args):
     return end_time - start_time
 
 def main():
-    random_value_arr = seed_rand_arr(100000, 1000)
+    random_value_arr = seed_rand_arr(500000, 10000)
     # print("Time taken by DaC %f" % (run_time(sum_DaC, True, random_value_arr)))
     # print("Time taken by Loop %f" % (run_time(sum_forward, True, random_value_arr)))
     # print("Time taken by DaC %f" % (run_time(count_DaC, True, random_value_arr)))
