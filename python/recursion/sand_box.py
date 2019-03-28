@@ -1,3 +1,8 @@
+# system config
+import sys
+limit = 2000
+sys.setrecursionlimit(limit)
+# code start here
 import time
 import random
 
@@ -59,21 +64,48 @@ def quick_sort(arr):
     greater = [i for i in arr[1:] if i > pivot]
     return quick_sort(less) + [pivot] + quick_sort(greater)
 
-def run_time(func, *args):
+def merge_stage(left, right):
+    arr = []
+    left_index, right_index = 0, 0
+    while left_index < len(left) and right_index < len(right):
+        if left[left_index] <= right[right_index]:
+            arr.append(left[left_index])
+            left_index += 1
+        else:
+            arr.append(right[right_index])
+            right_index += 1
+    # load remain part
+    while left_index < len(left):
+        arr.append(left[left_index])
+        left_index += 1
+    while right_index < len(right):
+        arr.append(right[right_index])
+        right_index += 1
+    return arr
+
+def merge_sort(arr):
+    if len(arr) < 2:
+        return arr
+    mid = len(arr) / 2
+    return merge_stage(merge_sort(arr[:mid]), merge_sort(arr[mid:]))
+
+def run_time(func, print_output, *args):
     start_time = time.time()
-    print func(*args)
+    out = func(*args)
     end_time = time.time()
+    if print_output: print out
     return end_time - start_time
 
 def main():
-    random_value_arr = seed_rand_arr(1000, 1000)
-    # print("Time taken by DaC %f" % (run_time(sum_DaC, random_value_arr)))
-    # print("Time taken by Loop %f" % (run_time(sum_forward, random_value_arr)))
-    # print("Time taken by DaC %f" % (run_time(count_DaC, random_value_arr)))
+    random_value_arr = seed_rand_arr(100000, 1000)
+    # print("Time taken by DaC %f" % (run_time(sum_DaC, True, random_value_arr)))
+    # print("Time taken by Loop %f" % (run_time(sum_forward, True, random_value_arr)))
+    # print("Time taken by DaC %f" % (run_time(count_DaC, True, random_value_arr)))
     # sorted_arr = seed_sorted_arr(10, 0)
-    # print("Time taken by Binary %f" % (run_time(binary_search, sorted_arr, 9)))
-    # print("Time taken by DaC %f" % (run_time(max_value_DaC, sorted_arr)))
-    print("Time taken by DaC quick sort %f" % (run_time(quick_sort, random_value_arr)))
+    # print("Time taken by Binary %f" % (run_time(binary_search, True, sorted_arr, 9)))
+    # print("Time taken by DaC %f" % (run_time(max_value_DaC, True, sorted_arr)))
+    print("Time taken by DaC quick sort %f" % (run_time(quick_sort, False, random_value_arr)))
+    print("Time taken by DaC merge sort %f" % (run_time(merge_sort, False, random_value_arr)))
 
 if __name__ == "__main__":
     main()
