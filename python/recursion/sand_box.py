@@ -98,7 +98,7 @@ def run_time(func, print_output, *args):
     return end_time - start_time
 
 def main():
-    random_value_arr = seed_rand_arr(500000, 10000)
+    random_value_arr = seed_rand_arr(100000, 10000)
     # print("Time taken by DaC %f" % (run_time(sum_DaC, True, random_value_arr)))
     # print("Time taken by Loop %f" % (run_time(sum_forward, True, random_value_arr)))
     # print("Time taken by DaC %f" % (run_time(count_DaC, True, random_value_arr)))
