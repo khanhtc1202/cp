@@ -2,8 +2,14 @@
 #include<vector>
 using namespace std;
 
-void print(vector<int> const &input) {
-  copy(input.begin(), input.end(), ostream_iterator<int>(cout, " "));
+template<typename T>
+void print(T const &input) {
+  copy(input.cbegin(), input.cend(), ostream_iterator<typename T::value_type>(cout, " "));
+}
+
+bool string_compare(string a, string b) {
+  if (a.size() != b.size()) return a.size() < b.size();
+  return a < b;
 }
 
 int main() {
@@ -12,5 +18,11 @@ int main() {
   cout << "\n";
   sort(v.begin(), v.end());
   print(v);
+  cout << "\n";
+
+  // sort vector of string
+  vector<string> vs = {"asd", "a", "af", ""};
+  sort(vs.begin(), vs.end(), string_compare);
+  print(vs);
   cout << "\n";
 }
