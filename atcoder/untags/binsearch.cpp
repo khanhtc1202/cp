@@ -1,4 +1,5 @@
-#include<iostream>
+#include <iostream>
+#include "libs.h"
 using namespace std;
 
 void binary_search(int* array, int n, int key);
@@ -6,8 +7,9 @@ void alternate_binary_search(int* array, int n, int key);
 
 int main() {
   int x; cin >> x;
-  int array[] = {1,2,3,4,5,6,7};
-  int n = sizeof(array)/sizeof(array[0]);
+  int n; cin >> n;
+  int array[n];
+  load_array_int(array, n);
 
   // original way
 //  binary_search(array, n, x);
