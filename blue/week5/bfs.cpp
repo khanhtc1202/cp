@@ -36,9 +36,17 @@ void BFS(int s)
 			{
 				visited[v] = true;
 				q.push(v);
-				dist[v] += 1;
+				dist[v] = dist[u] + 1;
 			}
 		}
+	}
+}
+
+void resetGraph()
+{
+	for (int i = 1; i <= V; i++)
+	{
+		graph[i].clear();
 	}
 }
 
@@ -69,7 +77,7 @@ int main()
 				cout << -1 << " ";
 		}
 		cout << endl;
-    graph = new vector<int>
+		resetGraph();
 	}
 	return 0;
 }
