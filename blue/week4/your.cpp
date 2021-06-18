@@ -7,7 +7,7 @@ using namespace std;
 
 int main()
 {
-	long long p; int c;
+	int p; int c;
 	int cases = 1;
 	while (true) {
 		cin >> p >> c;
@@ -16,9 +16,9 @@ int main()
 			break;
 		}
 
-		vector<long long> q;
-		stack<long long> pr_st;
-		for (int i = 1; i <= p; i++) q.push_back(i);
+		queue<int> q;
+		int size = min(p, c);
+		for (int i = 1; i <= size; i++) q.push(i);
 
 		cout << "Case " << cases++ << ":" << endl;
 		char exec;
@@ -28,26 +28,20 @@ int main()
 			cin >> exec;
 			if (exec == 'N')
 			{
-				if (pr_st.empty())
-				{
-					cout << q.front() << endl;
-					q.push_back(q.front());
-					q.erase(q.begin());
-				}
-				else
-				{
-					cout << pr_st.top() << endl;
-					q.push_back(pr_st.top());
-					pr_st.pop();
-				}
+				cout << q.front() << endl;
+				q.push(q.front());
+				q.pop();
 			}
 			else
 			{
 				cin >> k;
-				vector<long long>::iterator iter = find(q.begin(), q.end(), k);
-				if (iter != q.end()) {
-					q.erase(iter);
-					pr_st.push(k);
+				q.push(k);
+				int cnt = 0;
+				while (cnt < size)
+				{
+					cnt++;
+					q.push(q.front());
+					q.pop();
 				}
 			}
 		}
