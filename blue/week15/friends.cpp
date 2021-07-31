@@ -25,7 +25,7 @@ void makeSet()
 
 int findSet(int u)
 {
-	while (u != parent[u])
+	while (parent[u] != u)
 		parent[u] = findSet(parent[u]);
 	return parent[u];
 }
@@ -35,6 +35,7 @@ void unionSet(int u, int v)
 	int up = findSet(u);
 	int vp = findSet(v);
 	if (up == vp) return;
+	cout << u << "(" << up << ")" << " -> " << v << "(" << vp << ")" << endl;
 	if (ranks[up] > ranks[vp])
 	{
 		parent[vp] = up;
@@ -47,6 +48,7 @@ void unionSet(int u, int v)
 	}
 	else
 	{
+		cout << "go here (=)" << endl;
 		parent[up] = vp;
 		num[vp] += num[up];
 		ranks[vp]++;
@@ -76,9 +78,10 @@ int main()
 			cin >> a >> b;
 			unionSet(a, b);
 		}
+		return 0;
 		for (int i = 1; i <= N; i++)
 		{
-			cout << i << ": " << num[i] << endl;
+			cout << i << ": " << num[i] << " | " << ranks[i] << endl;
 		}
 		int ans = 0;
 		for (int i = 1; i <= N; i++)
