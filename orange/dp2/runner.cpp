@@ -31,9 +31,11 @@ int LCS(vector<int>& base, vector<int>& cmp, int m, int n)
 int main()
 {
 	int d; cin >> d;
+	string line;
+	// Not sure why but need to read one more line here 🤪
+	getline(cin, line);
 	while (d--)
 	{
-		string line;
 		getline(cin, line);
 		stringstream sin(line); int tmp;
 		vector<int> base;
@@ -42,12 +44,10 @@ int main()
 			base.push_back(tmp);
 		}
 		int ans = 0;
-
-		vector<int> cmp;
 		while (getline(cin, line), line != "0")
 		{
-			cmp.clear();
 			stringstream sin(line); int tmp;
+			vector<int> cmp;
 			while (sin >> tmp, tmp != 0)
 			{
 				cmp.push_back(tmp);
