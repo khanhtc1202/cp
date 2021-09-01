@@ -30,12 +30,10 @@ int LCS(vector<int>& base, vector<int>& cmp, int m, int n)
 
 int main()
 {
-	int d; cin >> d;
-	string line;
-	// Not sure why but need to read one more line here 🤪
-	getline(cin, line);
+	int d; scanf("%d\n", &d);
 	while (d--)
 	{
+		string line;
 		getline(cin, line);
 		stringstream sin(line); int tmp;
 		vector<int> base;
