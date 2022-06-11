@@ -10,6 +10,10 @@ func SumIntsOrFloats[K comparable, V int64 | float64](m map[K]V) V {
 	return s
 }
 
+func printAny[T any](t T) {
+	println(t)
+}
+
 func main() {
 	ints := map[string]int64{
 		"first":  34,
@@ -17,4 +21,7 @@ func main() {
 	}
 
 	fmt.Printf("sum ints = %d\n", SumIntsOrFloats(ints))
+
+	fmt.Printf("print any\n")
+	printAny(4)
 }
