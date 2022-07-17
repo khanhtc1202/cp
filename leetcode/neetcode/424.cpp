@@ -21,4 +21,8 @@ public:
         }
         return ans;
     }
+
+    int characterReplacement2(string s, int k) {
+        return 0;
+    }
 };
