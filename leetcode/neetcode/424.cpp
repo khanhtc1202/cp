@@ -23,6 +23,29 @@ public:
     }
 
     int characterReplacement2(string s, int k) {
-        return 0;
+        vector<int> counts(26, 0);
+        int res = 0, left = 0;
+        int maxf = 0;
+        for (int right = 0; right < s.size(); right++) {
+            // Update counts
+            counts[s[right] - 'A']++;
+
+            // Keep maintaining the substring valid condition
+            // while ((right - left + 1) - max_element(counts.begin(), counts.end()) > k) {}
+
+            // can maintain only maxf which should be increasing only since
+            // lenght - maxf <= k
+            // formular only need to be update if the maxf is max (increasing only)
+            // so only need to increase the maxf on counting new character (add 1)
+            maxf = max(maxf, counts[s[right]]);
+            while ((right - left + 1) - maxf > k) {
+                counts[s[left]]--;
+                left++;
+            }
+            
+            // Update res
+            res = max(res, right - left + 1);
+        }
+        return res;
     }
 };
