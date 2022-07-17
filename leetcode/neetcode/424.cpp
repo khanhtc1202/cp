@@ -37,9 +37,9 @@ public:
             // lenght - maxf <= k
             // formular only need to be update if the maxf is max (increasing only)
             // so only need to increase the maxf on counting new character (add 1)
-            maxf = max(maxf, counts[s[right]]);
+            maxf = max(maxf, counts[s[right]-'A']);
             while ((right - left + 1) - maxf > k) {
-                counts[s[left]]--;
+                counts[s[left] - 'A']--;
                 left++;
             }
             
