@@ -44,18 +44,26 @@ public:
         return false;
     }
 
-    // bool canPartitionBFS(vector<int>& nums) {
-    //     int sum = 0;
-    //     for (auto n: nums)
-    //         sum += n;
+    bool canPartitionBottomUp(vector<int>& nums) {
+        int sum = 0;
+        for (auto n: nums)
+            sum += n;
 
-    //     int sub = sum /2;
-    //     if (sum != sub*2)
-    //         return false;
+        int sub = sum /2;
+        if (sum != sub*2)
+            return false;
 
-    //     queue<int> q;
-    //     q.push(0);
-    //     vector<bool> visited(nums.size());
-    //     while
-    // }
+        vector<vector<bool>> dp(nums.size()+1, vector<bool>(sub+1, false));
+        dp[0][0] = true;
+        for (int i = 1; i <= nums.size(); i++) {
+            int num = nums[i-1];
+            for (int j = 0; j <= sub; j++) {
+                if (num > j)
+                    dp[i][j] = dp[i-1][j];
+                else
+                    dp[i][j] = dp[i-1][j] || dp[i-1][j-num];
+            }
+        }
+        return dp[nums.size()][sub];
+    }
 };
