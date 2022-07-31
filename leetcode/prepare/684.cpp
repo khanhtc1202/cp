@@ -44,6 +44,29 @@ public:
             return false;
         };
 
+        function<bool(int, int)> dfs2 = [&](int src, int target) -> bool {
+            if (src == target) return true;
+            if (seen.count(src)) return false; // you can't reach the target if you're in a cycle.
+
+            seen.insert(src);
+            for (auto nei: graph[src])
+                if (dfs(nei, target)) return true;
+
+            return false;
+        };
+
+        // The original version of DFS, we only check whether we touch a vertice (node) on call DFS
+        // If we saw that before, don't call DFS.
+        function<bool(int, int)> dfsOriginal = [&](int src, int target) -> bool {
+            if (src == target) return true;
+
+            seen.insert(src);
+            for (auto nei: graph[src])
+                if (!seen.count(nei) && dfs(nei, target)) return true;
+
+            return false;
+        };
+
         for (auto edge: edges) {
             int u = edge[0], v = edge[1]; seen.clear();
             if (!graph[u].empty() && !graph[v].empty() && dfs(u, v))
