@@ -28,4 +28,25 @@ public:
         backtrack(0);
         return res;
     }
+
+    vector<vector<int>> permuteInPlace(vector<int>& nums) {
+        int n = nums.size();
+        vector<vector<int>> res;
+
+        function<void(int)> dfs = [&](int curr) -> void {
+            if (curr == n) {
+                res.push_back(nums);
+                return;
+            }
+
+            for (int i = curr; i < n; i++) {
+                swap(nums[i], nums[curr]);
+                dfs(curr+1);
+                swap(nums[i], nums[curr]);
+            }
+        };
+
+        dfs(0);
+        return res;
+    }
 };
