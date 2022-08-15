@@ -15,4 +15,18 @@ public:
         }
         return dp[0];
     }
+
+    int jumpGreedy(vector<int>& nums) {
+        int n = nums.size();
+        int jump = 0;
+        int fastest = 0, end_slide = 0;
+        for (int i = 0; i < n-1; i++) {
+            fastest = max(fastest, i + nums[i]);
+            if (i == end_slide) {
+                jump++;
+                end_slide = fastest;
+            }
+        }
+        return jump;
+    }
 };
