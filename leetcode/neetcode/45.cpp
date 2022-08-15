@@ -29,4 +29,20 @@ public:
         }
         return jump;
     }
+
+    int jumpBFSOpt(vector<int>& nums) {
+        int n = nums.size();
+        int l = 0, r = 0;
+        int jump = 0;
+        while (r < n-1) {
+            int sz = 0;
+            for (int i = l; i <= r; i++) {
+                sz = max(sz, i + nums[i]);
+            }
+            l = r+1;
+            r = sz;
+            jump++;
+        }
+        return jump;
+    }
 };
