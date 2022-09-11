@@ -11,7 +11,9 @@ public:
         
         int ans = 0;
         while (visited.size() < n) {
-            auto [w, u] = pq.top(); pq.pop();
+            int w = pq.top().first;
+            int u = pq.top().second;
+            pq.pop();
             if (visited.find(u) != visited.end()) continue;
 
             visited.insert(u);
