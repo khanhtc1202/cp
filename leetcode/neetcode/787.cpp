@@ -28,7 +28,8 @@ public:
             // over stopped
             if (d == k+1) continue;
             
-            for (auto [v, wv]: adj[u]) {
+            for (auto nei: adj[u]) {
+                int v = nei.first, wv = nei.second;
                 // better distance to reach v
                 if (w + wv < dist[v]) {
                     dist[v] = w+wv;
