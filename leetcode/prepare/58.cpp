@@ -9,9 +9,8 @@ public:
             if (s[i] == ' ') {
                 if (ans == 0) continue;
                 return ans;
-            } else {
-                ans++;
             }
+            ans++;
         }
         return ans;
     }
