@@ -21,18 +21,14 @@ public:
             }
         }
         
-        if (i1 < m) {
-            while (i1 < m) {
-                tmp.push_back(nums1[i1]);
-                i1++;
-            }
+        while (i1 < m) {
+            tmp.push_back(nums1[i1]);
+            i1++;
         }
         
-        if (i2 < n) {
-            while (i2 < n) {
-                tmp.push_back(nums2[i2]);
-                i2++;
-            }
+        while (i2 < n) {
+            tmp.push_back(nums2[i2]);
+            i2++;
         }
         nums1 = tmp;
         return;
