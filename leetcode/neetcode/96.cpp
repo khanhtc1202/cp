@@ -17,7 +17,7 @@ public:
         return dp[n];
     }
 
-    int numTreesON(int n) {
+    int numTreesMath(int n) {
         long c;
         for (int i = 0; i < n; i++) {
             c = c * 2 * (2*i+1) / (i+2);
