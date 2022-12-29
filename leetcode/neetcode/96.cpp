@@ -9,7 +9,7 @@ public:
         dp[0] = 1;
         
         for (int i = 2; i <= n; i++) {
-            // take one ele as root -> take i as root
+            // take one element as root -> take i as root
             for (int j = 1; j <= i; j++) {
                 dp[i] += dp[j-1] * dp[i-j];
             }
@@ -17,6 +17,7 @@ public:
         return dp[n];
     }
 
+    // Based on https://en.wikipedia.org/wiki/Catalan_number
     int numTreesMath(int n) {
         long c;
         for (int i = 0; i < n; i++) {
