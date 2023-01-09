@@ -61,4 +61,42 @@ public:
         }
         return ans;
     }
+
+    int reversePairs_mergeSort(vector<int>& nums) {
+        int res = 0;
+        function<vector<int>(int, int)> mergeSort = [&](int low, int high) {
+            if (low == high - 1) return vector<int>{nums[low]};
+
+            int mid = low + (high - low)/2;
+            vector<int> left = mergeSort(low, mid);
+            vector<int> right = mergeSort(mid, high);
+
+            int i, j = 0;
+            for (i = 0; i < left.size(); i++) {
+                while (j < right.size() && left[i] > 2ll * right[j]) {
+                    j++;
+                }
+                res += j;
+            }
+
+            vector<int> ans;
+            i = 0, j = 0;
+            while (i < left.size() && j < right.size()) {
+                if (left[i] < right[j]) {
+                    ans.push_back(left[i++]);
+                } else {
+                    ans.push_back(right[j++]);
+                }
+            }
+            while (i < left.size())
+                ans.push_back(left[i++]);
+            while (j < right.size())
+                ans.push_back(right[j++]);
+
+            return ans;
+        };
+
+        mergeSort(0, nums.size());
+        return res;
+    }
 };
