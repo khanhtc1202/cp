@@ -14,8 +14,7 @@ class Solution {
 public:
     TreeNode* increasingBST(TreeNode* root) {
         TreeNode* clone = new TreeNode();
-        TreeNode* curr;
-        curr = clone;
+        TreeNode* curr = clone;
 
         function<void(TreeNode*)> travel = [&](TreeNode* node) {
             if (!node) return;
