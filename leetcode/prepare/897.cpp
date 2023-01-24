@@ -13,7 +13,7 @@ struct TreeNode {
 class Solution {
 public:
     TreeNode* increasingBST(TreeNode* root) {
-        TreeNode* clone = new TreeNode();
+        TreeNode* clone = new TreeNode(0);
         TreeNode* curr = clone;
 
         function<void(TreeNode*)> travel = [&](TreeNode* node) {
