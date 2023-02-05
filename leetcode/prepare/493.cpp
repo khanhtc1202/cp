@@ -42,7 +42,7 @@ struct SegmentTree {
 
 class Solution {
 public:
-    int reversePairs(vector<int>& nums) {
+    int reversePairs_SegTree(vector<int>& nums) {
         vector<long long> tmp;
         for (int i = 0; i < nums.size(); i++) {
             tmp.push_back(nums[i]);
