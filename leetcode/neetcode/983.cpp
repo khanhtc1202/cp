@@ -1,3 +1,7 @@
+/*
+Problem desc: https://leetcode.com/problems/minimum-cost-for-tickets/
+*/
+
 #include <bits/stdc++.h>
 using namespace std;
 
