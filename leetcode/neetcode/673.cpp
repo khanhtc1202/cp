@@ -1,0 +1,31 @@
+/*
+Problem desc: https://leetcode.com/problems/number-of-longest-increasing-subsequence/
+*/
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    int findNumberOfLIS(vector<int>& nums) {
+        int n = nums.size(); int res = 0, max_len = 0;
+        vector<pair<int, int>> dp(n, {1,1}); // {length of LIS, number of LIS} end at i
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[i] > nums[j]) {
+                    if (dp[i].first == dp[j].first + 1)
+                        dp[i].second += dp[j].second;
+
+                    if (dp[i].first < dp[j].first + 1)
+                        dp[i] = {dp[j].first + 1, dp[j].second};
+                }
+            }
+
+            if (max_len == dp[i].first) res += dp[i].second;
+            if (max_len < dp[i].first) {
+                max_len = dp[i].first;
+                res = dp[i].second;
+            }
+        }
+        return res;
+    }
+};
