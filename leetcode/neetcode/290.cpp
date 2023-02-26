@@ -1,3 +1,7 @@
+/*
+Problem desc: https://leetcode.com/problems/word-pattern/
+*/
+
 #include <bits/stdc++.h>
 using namespace std;
 
