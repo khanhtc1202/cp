@@ -1,3 +1,6 @@
+/*
+Problem desc: https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/
+*/
 #include <bits/stdc++.h>
 using namespace std;
 
