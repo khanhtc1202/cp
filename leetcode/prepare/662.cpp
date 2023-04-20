@@ -25,11 +25,13 @@ public:
             double lastNodeColIndex = 0;
             for (int i = 0; i < sz; i++) {
                 auto [node, colIndex] = q.front(); q.pop();
+                // cheat here: resize the column index of node based on head node col index.
+                colIndex -= headNodeColIndex;
                 if (node->left) q.push({node->left, 2 * colIndex});
                 if (node->right) q.push({node->right, 2 * colIndex + 1});
                 lastNodeColIndex = colIndex;
             }
-            ans = max(ans, lastNodeColIndex - headNodeColIndex + 1);
+            ans = max(ans, lastNodeColIndex + 1);
         }
         return (int)ans;
     }
