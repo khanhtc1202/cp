@@ -41,4 +41,26 @@ public:
         if (tmp != nullptr) first->next = tmp;
         return {next, first};
     }
+
+    // Direct swap without swap function
+        ListNode* swapPairsInDirect(ListNode* head) {
+        if (!head || !head->next) return head;
+
+        ListNode* dummy = new ListNode(-1);
+        dummy->next = head;
+
+        ListNode* prev = dummy;
+        while (head && head->next) {
+            ListNode* first = head;
+            ListNode* second = head->next;
+
+            prev->next = second;
+            first->next = second->next;
+            second->next = first;
+
+            prev = first;
+            head = prev->next;
+        }
+        return dummy->next;
+    }
 };
