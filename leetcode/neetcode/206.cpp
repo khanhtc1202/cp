@@ -1,3 +1,6 @@
+/*
+https://leetcode.com/problems/reverse-linked-list/description/
+*/
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -23,14 +26,14 @@ public:
         return prev;
     }
 
-    ListNode* reverse(ListNode* head) {
-        ListNode* prev;
-        while (head) {
-            ListNode* nxt = head->next;
-            head->next = prev;
-            prev = head;
-            head = nxt;
-        }
+    ListNode* _reverseList(ListNode* head) {
+        if (!head || !head->next)
+            return head;
+
+        ListNode* prev = _reverseList(head->next);
+        head->next->next = head;
+        head->next = nullptr;
+
         return prev;
     }
 };
