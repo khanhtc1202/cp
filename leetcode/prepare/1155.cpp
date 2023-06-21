@@ -22,4 +22,21 @@ public:
         }
         return dp[n][target];
     }
+
+    int numRoolsToTargetMemOpt(int n, int k, int target) {
+        int mod = 1e9+7;
+        vector<int> dp(target+1, 0);
+        dp[0] = 1;
+
+        for (int roll = 1; roll <= n; roll++) {
+            vector<int> newDp(target+1, 0);
+            for (int currSum = 1; currSum <= target; currSum++) {
+                for (int i = 1; i <= min(k, currSum); i++) {
+                    (newDp[currSum] += dp[currSum-i]) %= mod;
+                }
+            }
+            dp = newDp;
+        }
+        return dp[target];
+    }
 };
