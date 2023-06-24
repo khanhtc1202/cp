@@ -52,12 +52,10 @@ public:
 
     int _maxProfitOpt(vector<int>& prices, int fee) {
         int n = prices.size();
-        int ans = 0, prev = -prices[0];
-        int curMax = -prices[0]; // buy at 0;
+        int ans = 0, prev = 0;
+        int curMax = -prices[0]; // buy at 0
 
         for (int i = 0; i < n; i++) {
-            if (i) ans = prev;
-
             ans = max(ans, curMax + prices[i] - fee);
             curMax = max(curMax, prev - prices[i]);
             prev = ans;
