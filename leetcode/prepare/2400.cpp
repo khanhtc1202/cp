@@ -25,4 +25,14 @@ public:
 
         return combination(k, (k - dist)/2);
     }
+
+    int numberOfWays_DP(int startPos, int endPos, int k) {
+        int dp[1001][1001] = {}, mod = 1e9+7;
+        for (int i = 1; i <= k; ++i) {
+            dp[i][i] = 1;
+            for (int j = 0; j < i; ++j)
+                dp[i][j] = (dp[i - 1][abs(j - 1)] + dp[i - 1][j + 1]) % mod;
+        }
+        return dp[k][abs(startPos - endPos)];
+    }
 };
