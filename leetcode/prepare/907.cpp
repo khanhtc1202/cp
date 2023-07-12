@@ -34,4 +34,22 @@ public:
         }
         return ans;
     }
+
+    int sumSubarrayMinsOpt(vector<int>& arr) {
+        int n = arr.size();
+        int ans = 0;
+        vector<int> stk;
+
+        for (int i = 0; i <= n; ++i) {
+            while (!stk.empty() && (i == n || arr[stk.back()] >= arr[i])) {
+                int mid = stk.back(); stk.pop_back();
+                int left = stk.empty() ? -1 : stk.back();
+                ans += 1ll * arr[mid] * (mid - left) * (i - mid) % MOD;
+                ans %= MOD;
+            }
+            stk.push_back(i);
+        }
+
+        return ans;
+    }
 };
