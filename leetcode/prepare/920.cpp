@@ -20,6 +20,9 @@ public:
                 // The i-th song is a new song
                 dp[i][j] = dp[i-1][j-1] * (n - j + 1) % mod;
                 // The i-th song has played before
+                // We only treat that i-th song as it's played before
+                // if the number of unique songs to build is higher than
+                // k, or else we can not replay due to the condition.
                 if (j > k) {
                     (dp[i][j] += dp[i-1][j] * (j - k)) %= mod;
                 }
