@@ -18,8 +18,8 @@ public:
         }
 
         int taps = 0;
-        int currEnd = 0;
-        int nextEnd = 0;
+        int currEnd = 0; // current rightmost position reached
+        int nextEnd = 0; // next rightmost position that can be reached
 
         for (int i = 0; i < n+1; ++i) {
             // The current index can't be covered
