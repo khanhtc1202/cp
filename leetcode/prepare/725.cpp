@@ -27,19 +27,16 @@ public:
         vector<ListNode*> ans(k, {});
         
         curr = head;
-        ListNode* prev = new ListNode();
-        prev->next = curr;
+        ListNode* prev;
 
         for (int i = 0; i < k; ++i) {
             int iLen = sz + (extra-- > 0 ? 1 : 0);
             if (!curr) break; // stop immediately if there is no more node
             ans[i] = curr;
-            iLen--;
             prev = curr; curr = curr->next;
-            while (iLen && curr) {
+            while (--iLen && curr) {
                 prev = curr;
                 curr = curr->next;
-                iLen--;
             }
             prev->next = nullptr;
         }
