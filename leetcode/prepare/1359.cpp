@@ -14,4 +14,9 @@ public:
         }
         return (int)count;
     }
+
+    int countOrders_Rec(int n) {
+        if (n == 1) return 1;
+        return (int)((long long)countOrders_Rec(n-1) * (2*n-1) * n % MOD);
+    }
 };
