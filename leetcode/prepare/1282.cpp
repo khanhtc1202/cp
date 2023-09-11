@@ -30,4 +30,23 @@ public:
 
         return ans;
     }
+
+    vector<vector<int>> groupThePeople_HashMap(vector<int>& groupSizes) {
+        unordered_map<int, vector<int>> hash;
+        vector<vector<int>> ans;
+        int n = groupSizes.size();
+
+        for (int i = 0; i < n; ++i) {
+            int gs = groupSizes[i];
+            if (gs == 1) ans.push_back({i});
+            else {
+                hash[gs].push_back(i);
+                if (hash[gs].size() == gs) {
+                    ans.push_back(hash[gs]);
+                    hash[gs].clear();
+                }
+            }
+        }
+        return ans;
+    }
 };
