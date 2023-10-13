@@ -34,7 +34,7 @@ public:
         peak=r;
 
         // find in increasing part
-        l=0, r=peak;        
+        l=0, r=peak;
         while(l<r){
             m=l+(r-l)/2;
             int x=mountainArr.get(m);
