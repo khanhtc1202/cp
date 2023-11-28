@@ -24,7 +24,10 @@ public:
                     // reset new block (of two seats)
                     pc = 0; sc = 1;
                 }
-            } else if(c == 'P' && sc == 2) pc++;
+            }
+            // update the number of plans only when there are two seats
+            // ignore the seats in the middle of two seats in a block
+            else if(c == 'P' && sc == 2) pc++;
         }
 
         if (seats == 0 || seats % 2 != 0) return 0;
