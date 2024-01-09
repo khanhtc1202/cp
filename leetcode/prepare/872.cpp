@@ -1,3 +1,6 @@
+/*
+https://leetcode.com/problems/leaf-similar-trees/
+*/
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -13,9 +16,7 @@ struct TreeNode {
 class Solution {
 public:
     bool leafSimilar(TreeNode* root1, TreeNode* root2) {
-        vector<int> leaf;
-
-        auto bfs = [&](TreeNode* node) -> void {
+        auto bfs = [&](TreeNode* node, vector<int>& leaf) -> void {
             stack<TreeNode*> q;
             q.push(node);
             while (!q.empty()) {
@@ -29,12 +30,9 @@ public:
             }
         };
 
-        bfs(root1);
-        bfs(root2);
-        if (leaf.size() % 2) return false;
-        for (int i = 0; i < leaf.size() / 2; i++) {
-            if (leaf[i] != leaf[leaf.size()/2 + i]) return false;
-        }
-        return true;
+        vector<int> leaf1, leaf2;
+        bfs(root1, leaf1);
+        bfs(root2, leaf2);
+        return leaf1 == leaf2;
     }
 };
