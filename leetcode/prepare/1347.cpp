@@ -13,4 +13,16 @@ public:
         for (auto c: t) if (++cntt[c-'a'] > cnts[c-'a']) ++ans;
         return ans;
     }
+
+    int minStepsOnePass(string s, string t) {
+        int cnt[26] = {0};
+        for (int i = 0; i < s.size(); ++i) {
+            ++cnt[s[i]-'a'];
+            --cnt[t[i]-'a'];
+        }
+        int ans = 0;
+        for (int i = 0; i < 26; ++i)
+            if (cnt[i] > 0) ans += cnt[i];
+        return ans;
+    }
 };
