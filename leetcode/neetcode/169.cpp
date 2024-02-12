@@ -1,3 +1,6 @@
+/*
+https://leetcode.com/problems/majority-element/
+*/
 #include <bits/stdc++.h>
 using namespace std;
 
