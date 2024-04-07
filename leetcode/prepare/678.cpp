@@ -16,4 +16,21 @@ public:
         }
         return lo == 0;
     }
+
+    bool checkValidString_Alter(string s) {
+        int open = 0, close = 0;
+        int sz = s.size();
+        for (int i = 0; i < sz; ++i) {
+            // travel both ends, end encount any *
+            // from left as '(' while any from right as ')'
+            if (s[i] == '(' || s[i] == '*') ++open;
+            else --open;
+
+            if (s[sz-i-1] == ')' || s[sz-i-1] == '*') ++close;
+            else --close;
+
+            if (open < 0 || close < 0) return false;
+        }
+        return true;
+    }
 };
