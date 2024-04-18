@@ -49,4 +49,36 @@ public:
         }
         return ans;
     }
+
+    int islandPerimeter_dfs(vector<vector<int>>& grid) {
+        int n = grid.size(), m = grid[0].size();
+        int ans = 0;
+        vector<int> dx = {1,-1,0,0};
+        vector<int> dy = {0,0,-1,1};
+
+        function<void(int, int)> dfs = [&](int u, int v) -> void {
+            if (u < 0 || u >= n || v < 0 || v >= m || grid[u][v] == 0) {
+                ++ans;
+                return;
+            }
+
+            // Skip visited
+            if (grid[u][v] != 1) return;
+
+            grid[u][v] = 2;
+            for (int i = 0; i < 4; ++i) {
+                dfs(u+dx[i], v+dy[i]);
+            }
+        };
+
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < m; ++j) {
+                if (grid[i][j] == 1) {
+                    dfs(i, j);
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
 };
