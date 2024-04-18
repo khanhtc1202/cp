@@ -31,7 +31,7 @@ public:
 
     int islandPerimeter_novisited(vector<vector<int>>& grid) {
         int n = grid.size(), m = grid[0].size();
-        int ans = 0; queue<pair<int,int>> q;
+        int ans = 0;
         vector<int> dx = {1,-1,0,0};
         vector<int> dy = {0,0,-1,1};
 
