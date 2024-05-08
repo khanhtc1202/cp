@@ -1,9 +1,9 @@
 /*
 https://leetcode.com/problems/double-a-number-represented-as-a-linked-list/
 */
-#include <bits/stdc.h>
-using namespace std;
 #pragma GCC optimize("O3", "unroll-loops")
+#include <bits/stdc++.h>
+using namespace std;
 
 struct ListNode {
     int val;

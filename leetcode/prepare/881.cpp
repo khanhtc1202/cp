@@ -1,10 +1,10 @@
 /*
 https://leetcode.com/problems/boats-to-save-people/
 */
-#include <bits/stdc.h>
+#pragma GCC optimize("O3", "unroll-loops")
+#include <bits/stdc++.h>
 using namespace std;
 
-#pragma GCC optimize("O3", "unroll-loops")
 class Solution {
 public:
     int numRescueBoats(vector<int>& people, int limit) {

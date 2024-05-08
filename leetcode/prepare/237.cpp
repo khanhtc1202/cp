@@ -1,7 +1,7 @@
 /*
 https://leetcode.com/problems/delete-node-in-a-linked-list/
 */
-#include <bits/stdc.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 struct ListNode {
