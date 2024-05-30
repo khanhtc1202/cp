@@ -34,6 +34,8 @@ public:
             // with (start_1, start_2, ..., start_m, end) are indices which have same XOR prefix
             // ans += (end - start_1) + (end - start_2) + ... + (end - start_m)
             //     += end * m - (start_1 + start_2 + ... + start_m)
+            // or = end * m - (start_1 + start_2 + ... + start_m + m)
+            // and add (+1) to to after total each time we update total
             ans += i * cnt[currXOR] - total[currXOR];
             // Update cnt and total
             cnt[currXOR]++;
