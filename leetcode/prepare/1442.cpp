@@ -22,4 +22,23 @@ public:
         }
         return count;
     }
+
+    int countTriplets_OnePass(vector<int>& arr) {
+        unordered_map<int, int> total, cnt;
+        int currXOR = 0, ans = 0;
+        cnt[0] = 1;
+
+        for (int i = 0; i < arr.size(); ++i) {
+            currXOR ^= arr[i];
+            // Formula based on:
+            // with (start_1, start_2, ..., start_m, end) are indices which have same XOR prefix
+            // ans += (end - start_1) + (end - start_2) + ... + (end - start_m)
+            //     += end * m - (start_1 + start_2 + ... + start_m)
+            ans += i * cnt[currXOR] - total[currXOR];
+            // Update cnt and total
+            cnt[currXOR]++;
+            total[currXOR] += i+1;
+        }
+        return ans;
+    }
 };
