@@ -26,3 +26,51 @@ public:
         return dp[0][N - 1];
     }
 };
+
+class Solution1 {
+public:
+    int strangePrinter(string s) {
+        s = removeDuplicates(s);
+        int N = s.size();
+        vector<vector<int>> memo(N, vector<int>(N, -1));
+        return minTurnsCal(0, N-1, s, memo);
+    }
+private:
+    int minTurnsCal(int start, int end, string& s, vector<vector<int>>& memo) {
+        // Base case
+        if (start > end) return 0;
+        // Met before
+        if (memo[start][end] != -1) return memo[start][end];
+
+        // Worst case init
+        int minTurns = 1 + minTurnsCal(start+1, end, s, memo);
+        // Opt by finding matching char (aka. "abcda" pattern)
+        for (int k = start+1; k <= end; ++k) {
+            if (s[k] == s[start]) {
+                // Split at k to have [start, k-1] & [k+1, end]
+                // since s[k] == s[start], we can print s[k] at the
+                // time we print s[start] (no need to consider it in recursion call)
+                int turnsWithMatch = minTurnsCal(start, k-1, s, memo) +
+                                     minTurnsCal(k+1, end, s, memo);
+                minTurns = min(minTurns, turnsWithMatch);
+            }
+        }
+
+        // Memo and return
+        return memo[start][end] = minTurns;
+    }
+
+    // Make "aaabbbaa" becomes "aba"
+    string removeDuplicates(string& s) {
+        string ans;
+        int i = 0;
+        while (i < s.size()) {
+            char curr = s[i];
+            ans += curr;
+            while (i < s.size() && s[i] == curr) {
+                ++i;
+            }
+        }
+        return ans;
+    }
+};
