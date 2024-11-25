@@ -44,4 +44,45 @@ public:
         }
         return -1;
     }
+
+    int slidingPuzzle_Opt(vector<vector<int>>& board) {
+        vector<vector<int>> directions = {{1,3}, {0,2,4}, {1,5}, {0,4}, {1,3,5}, {2,4}};
+
+        string target = "123450";
+        string start;
+        for (int i = 0; i < 2; ++i) {
+            for (int j = 0; j < 3; ++j) {
+                start += to_string(board[i][j]);
+            }
+        }
+
+        unordered_set<string> visited;
+        queue<string> q;
+        q.push(start);
+        visited.insert(start);
+        int ans = 0;
+        while (!q.empty()) {
+            int size = q.size();
+            while (size-- > 0) {
+                string current = q.front();
+                q.pop();
+                if (current == target) {
+                    return ans;
+                }
+                int currZeroPos = current.find('0');
+                for (int nextZeroPos: directions[currZeroPos]) {
+                    string next = current;
+                    swap(next[currZeroPos], next[nextZeroPos]);
+
+                    // second time see this state mean slower so drop
+                    if (visited.count(next)) continue;
+
+                    visited.insert(next);
+                    q.push(next);
+                }
+            }
+            ans++;
+        }
+        return -1; // Not possible to solve the state
+    }
 };
