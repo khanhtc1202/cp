@@ -14,6 +14,8 @@ public:
 
         for (auto& e: events) {
             // Check all previous events which end before current event start
+            // to find whether any new "valid" events that its value greater than maxVal
+            // or not, if not, maxVal - most valuable valid previous event will be used.
             while (!minHeap.empty() && minHeap.top().first < e[0]) {
                 maxVal = max(maxVal, minHeap.top().second);
                 minHeap.pop();
