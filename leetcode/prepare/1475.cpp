@@ -22,4 +22,17 @@ public:
         }
         return prices;
     }
+    
+    vector<int> finalPrices_refactor(vector<int>& prices) {
+        vector<int> res = prices;
+        vector<int> stk;
+        for (int i = 0; i < prices.size(); ++i) {
+            while (!stk.empty() && prices[stk.back()] >= prices[i]) {
+                res[stk.back()] -= prices[i];
+                stk.pop_back();
+            }
+            stk.push_back(i);
+        }
+        return res;
+    }
 };
