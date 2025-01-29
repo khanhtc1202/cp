@@ -6,7 +6,7 @@ public:
     vector<int> findRedundantConnectionVector(vector<vector<int>>& edges) {
         int n = edges.size();
         vector<vector<int>> graph(n+1);
-        vector<bool> seen(n+1, false);
+        bool seen[10001];
 
         function<bool(int, int)> dfs = [&](int src, int target) -> bool {
             if (!seen[src]) {
@@ -20,7 +20,7 @@ public:
 
         for (auto edge: edges) {
             int u = edge[0], v = edge[1];
-            memset(&seen[0], 0, sizeof(seen[0]) * seen.size());
+            memset(seen, false, 10001);
             if (!graph[u].empty() && !graph[v].empty() && dfs(u, v))
                 return edge;
             graph[u].push_back(v);
