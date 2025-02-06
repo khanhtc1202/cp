@@ -1,3 +1,6 @@
+/*
+https://leetcode.com/problems/tuple-with-same-product/
+*/
 #include <bits/stdc++.h>
 using namespace std;
 
