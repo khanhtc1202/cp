@@ -7,9 +7,11 @@ using namespace std;
 class Solution {
 public:
     int minOperations(vector<int>& nums, int k) {
-        int min_e = *min_element(nums.begin(), nums.end());
-        if (min_e < k) return -1;
-        unordered_set<int> s(nums.begin(), nums.end());
-        return min_e == k ? s.size() - 1 : s.size();
+        unordered_set<int> s;
+        for (int x: nums) {
+            if (x < k) return -1;
+            else if (x > k) s.insert(x);
+        }
+        return s.size();
     }
 };
