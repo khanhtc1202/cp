@@ -8,6 +8,7 @@ class Solution {
 public:
     int totalFruit(vector<int>& fruits) {
         const int n = fruits.size();
+        // freq stores the number of fruits of each type in current window
         int freq[100001] = {0};
         int ans = 0, cnt = 0, baskets = 0;
         for (int l = 0, r = 0; r < n; ++r) {
