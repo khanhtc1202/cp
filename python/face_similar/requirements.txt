@@ -7,7 +7,7 @@ dlib==19.16.0
 kiwisolver==1.0.1
 matplotlib==2.2.3
 networkx==2.2
-numpy==1.15.4
+numpy==1.22.0
 Pillow==6.2.0
 pyparsing==2.3.0
 python-dateutil==2.7.5
